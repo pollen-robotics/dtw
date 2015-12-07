@@ -27,7 +27,7 @@ def dtw(x, y, dist):
 def _traceback(D):
     i, j = array(D.shape) - 1
     p, q = [i], [j]
-    while (i and j):
+    while (i or j):
         tb = argmin((D[i-1, j-1], D[i-1, j], D[i, j-1]))
         if (tb == 0):
             i -= 1
@@ -38,13 +38,13 @@ def _traceback(D):
             j -= 1
         p.insert(0, i)
         q.insert(0, j)
-    p.insert(0, 0)
-    q.insert(0, 0)
+    #p.insert(0, 0)
+    #q.insert(0, 0)
     return p, q
 
 
 if __name__ == '__main__':
-    if 0: # 1-D numeric
+    if 1: # 1-D numeric
         from sklearn.metrics.pairwise import manhattan_distances
         x = [0, 0, 1, 1, 2, 4, 2, 1, 2, 0]
         y = [1, 1, 1, 2, 2, 2, 2, 3, 2, 0]
@@ -56,11 +56,12 @@ if __name__ == '__main__':
         dist_fun = euclidean_distances
     else: # 1-D list of strings
         from nltk.metrics.distance import edit_distance
-        x = 'this is great too'.split()
-        y = 'this too is greatly'.split()
+        x = 'we talked about the situation'.split()
+        y = 'we talked about the situation'.split()
         dist_fun = edit_distance
     dist, cost, acc, path = dtw(x, y, dist_fun)
     print('Minimum distance found:', dist)
+    print(path)
     from matplotlib import pyplot as plt
     plt.imshow(cost.T, origin='lower', cmap=plt.cm.Reds, interpolation='nearest')
     plt.plot(path[0], path[1], '-o')
