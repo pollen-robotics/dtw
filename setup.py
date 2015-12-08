@@ -4,7 +4,7 @@ from setuptools import setup
 
 
 setup(name='dtw',
-      version='1.0',
+      version='1.1',
       description='Python DTW Module',
       author='Pierre Rouanet',
       author_email='pierre.rouanet@gmail.com',
