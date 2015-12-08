@@ -10,6 +10,8 @@ def dtw(x, y, dist):
 
     Returns the minimum distance, the cost matrix, the accumulated cost matrix, and the wrap path.
     """
+    assert len(x)
+    assert len(y)
     r, c = len(x), len(y)
     D0 = zeros((r + 1, c + 1))
     D0[0, 1:] = inf
@@ -22,13 +24,19 @@ def dtw(x, y, dist):
     for i in range(r):
         for j in range(c):
             D1[i, j] += min(D0[i, j], D0[i, j+1], D0[i+1, j])
-    return D1[-1, -1] / sum(D1.shape), C, D1, _traceback(D1)
+    if len(x)==1:
+        path = zeros(len(y)), range(len(y))
+    elif len(y) == 1:
+        path = range(len(x)), zeros(len(x))
+    else:
+        path = _traceback(D0)
+    return D1[-1, -1] / sum(D1.shape), C, D1, path
 
 def _traceback(D):
-    i, j = array(D.shape) - 1
+    i, j = array(D.shape) - 2
     p, q = [i], [j]
-    while (i or j):
-        tb = argmin((D[i-1, j-1], D[i-1, j], D[i, j-1]))
+    while ((i > 0) or (j > 0)):
+        tb = argmin((D[i, j], D[i, j+1], D[i+1, j]))
         if (tb == 0):
             i -= 1
             j -= 1
@@ -38,13 +46,10 @@ def _traceback(D):
             j -= 1
         p.insert(0, i)
         q.insert(0, j)
-    #p.insert(0, 0)
-    #q.insert(0, 0)
-    return p, q
-
+    return array(p), array(q)
 
 if __name__ == '__main__':
-    if 1: # 1-D numeric
+    if 0: # 1-D numeric
         from sklearn.metrics.pairwise import manhattan_distances
         x = [0, 0, 1, 1, 2, 4, 2, 1, 2, 0]
         y = [1, 1, 1, 2, 2, 2, 2, 3, 2, 0]
@@ -52,22 +57,32 @@ if __name__ == '__main__':
     elif 0: # 2-D numeric
         from sklearn.metrics.pairwise import euclidean_distances
         x = [[0, 0], [0, 1], [1, 1], [1, 2], [2, 2], [4, 3], [2, 3], [1, 1], [2, 2], [0, 1]]
-        y = [[1, 0], [1, 1], [1, 1], [2, 1], [2, 2], [2, 3], [2, 3], [3, 1], [1, 2], [1, 0]]
+        y = [[1, 0], [1, 1], [1, 1], [2, 1], [4, 3], [4, 3], [2, 3], [3, 1], [1, 2], [1, 0]]
         dist_fun = euclidean_distances
     else: # 1-D list of strings
         from nltk.metrics.distance import edit_distance
-        x = 'we talked about the situation'.split()
-        y = 'we talked about the situation'.split()
+        #x = ['we', 'shelled', 'clams', 'for', 'the', 'chowder']
+        #y = ['class', 'too']
+        x = ['i', 'soon', 'found', 'myself', 'muttering', 'to', 'the', 'walls']
+        y = ['see', 'drown', 'himself']
+        #x = 'we talked about the situation'.split()
+        #y = 'we talked about the situation'.split()
         dist_fun = edit_distance
     dist, cost, acc, path = dtw(x, y, dist_fun)
-    print('Minimum distance found:', dist)
-    print(path)
+    alignment_x = align(x, y, cost, path)
+    alignment_y = align(y, x, cost, (path[1], path[0]))
+    # vizualize
     from matplotlib import pyplot as plt
     plt.imshow(cost.T, origin='lower', cmap=plt.cm.Reds, interpolation='nearest')
-    plt.plot(path[0], path[1], '-o')
+    plt.plot(path[0], path[1]) # relation
+    for _x, _y, _s in zip(path[0], path[1], range(len(path[0]))):
+        plt.text(_x, _y, _s, va='center', ha='center')
+    plt.plot(range(len(x)), alignment_x, 'yo')
+    plt.plot(alignment_y, range(len(y)), 'mo')
     plt.xticks(range(len(x)), x)
     plt.yticks(range(len(y)), y)
     plt.xlabel('x')
     plt.ylabel('y')
     plt.axis('tight')
+    plt.title('Minimum distance: {}'.format(dist))
     plt.show()
