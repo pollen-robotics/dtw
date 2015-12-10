@@ -69,16 +69,11 @@ if __name__ == '__main__':
         #y = 'we talked about the situation'.split()
         dist_fun = edit_distance
     dist, cost, acc, path = dtw(x, y, dist_fun)
-    alignment_x = align(x, y, cost, path)
-    alignment_y = align(y, x, cost, (path[1], path[0]))
+
     # vizualize
     from matplotlib import pyplot as plt
     plt.imshow(cost.T, origin='lower', cmap=plt.cm.Reds, interpolation='nearest')
-    plt.plot(path[0], path[1]) # relation
-    for _x, _y, _s in zip(path[0], path[1], range(len(path[0]))):
-        plt.text(_x, _y, _s, va='center', ha='center')
-    plt.plot(range(len(x)), alignment_x, 'yo')
-    plt.plot(alignment_y, range(len(y)), 'mo')
+    plt.plot(path[0], path[1], '-o') # relation
     plt.xticks(range(len(x)), x)
     plt.yticks(range(len(y)), y)
     plt.xlabel('x')
