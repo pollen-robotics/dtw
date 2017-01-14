@@ -4,14 +4,21 @@
 
 dtw (dynamic time warping) python module. it is effectively a distance metric - small distance values indicate similarity.
 
-## usage
+## where do i get it?
 
-to install:
+from pypi:
 ```
 python -m pip install dtw
 ```
 
-to run:
+from source:
+```
+git clone https://github.com/mynameisvinn/dynamic-time-warping
+cd dynamic-time-warping
+python setup.py install
+```
+
+## how do i use it?
 ```
 >>> from dtw_lib.dtw_module import DTW
 >>> x = np.array([0, 0, 1, 1, 2, 4, 2, 1, 2, 0]).reshape(-1, 1)
