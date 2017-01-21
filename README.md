@@ -20,7 +20,7 @@ python setup.py install
 
 ## how do i use it?
 ```
->>> from dtw_lib.dtw_module import DTW
+>>> from dtw import DTW
 >>> x = np.array([0, 0, 1, 1, 2, 4, 2, 1, 2, 0]).reshape(-1, 1)
 >>> y = np.array([1, 1, 1, 2, 2, 2, 2, 3, 2, 0]).reshape(-1, 1)
 >>> D = DTW()
