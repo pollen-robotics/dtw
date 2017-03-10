@@ -1,4 +1,4 @@
-from numpy import array, zeros, argmin, inf, equal
+from numpy import array, zeros, argmin, inf, equal, ndim
 from scipy.spatial.distance import cdist
 
 def dtw(x, y, dist):
@@ -47,6 +47,10 @@ def fastdtw(x, y, dist):
     """
     assert len(x)
     assert len(y)
+    if ndim(x)==1:
+        x = x.reshape(-1,1)
+    if ndim(y)==1:
+        y = y.reshape(-1,1)
     r, c = len(x), len(y)
     D0 = zeros((r + 1, c + 1))
     D0[0, 1:] = inf
