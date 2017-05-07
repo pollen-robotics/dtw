@@ -15,4 +15,5 @@ setup(name='dtw',
       setup_requires=['setuptools_git >= 0.3', ],
 
       py_modules=['dtw'],
+      test_suite='tests'
       )
