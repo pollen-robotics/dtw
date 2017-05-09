@@ -1,5 +1,6 @@
 # dtw
 
+[![Build Status](https://travis-ci.org/pierre-rouanet/dtw.svg?branch=master)](https://travis-ci.org/pierre-rouanet/dtw)
 
 DTW (Dynamic Time Warping) python module
 
