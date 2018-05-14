@@ -1,14 +1,14 @@
 from numpy import array, zeros, argmin, inf, equal, ndim
 from scipy.spatial.distance import cdist
 
-def dtw(x, y, dist):
+def dtw(x, y, dist, warping=1):
     """
     Computes Dynamic Time Warping (DTW) of two sequences.
 
     :param array x: N1*M array
     :param array y: N2*M array
     :param func dist: distance used as cost measure
-
+    :param int warping: how many shifts are computed.
     Returns the minimum distance, the cost matrix, the accumulated cost matrix, and the wrap path.
     """
     assert len(x)
@@ -24,7 +24,10 @@ def dtw(x, y, dist):
     C = D1.copy()
     for i in range(r):
         for j in range(c):
-            D1[i, j] += min(D0[i, j], D0[i, j+1], D0[i+1, j])
+            min_list = [D0[i, j]]
+            for k in range(1, warping + 1):
+                min_list += [D0[i + k, j], D0[i, j + k]]
+            D1[i, j] += min(min_list)
     if len(x)==1:
         path = zeros(len(y)), range(len(y))
     elif len(y) == 1:
@@ -33,7 +36,7 @@ def dtw(x, y, dist):
         path = _traceback(D0)
     return D1[-1, -1] / sum(D1.shape), C, D1, path
 
-def fastdtw(x, y, dist):
+def fastdtw(x, y, dist, warping=1):
     """
     Computes Dynamic Time Warping (DTW) of two sequences in a faster way.
     Instead of iterating through each element and calculating each distance,
@@ -43,6 +46,7 @@ def fastdtw(x, y, dist):
     :param array y: N2*M array
     :param string or func dist: distance parameter for cdist. When string is given, cdist uses optimized functions for the distance metrics.
     If a string is passed, the distance function can be 'braycurtis', 'canberra', 'chebyshev', 'cityblock', 'correlation', 'cosine', 'dice', 'euclidean', 'hamming', 'jaccard', 'kulsinski', 'mahalanobis', 'matching', 'minkowski', 'rogerstanimoto', 'russellrao', 'seuclidean', 'sokalmichener', 'sokalsneath', 'sqeuclidean', 'wminkowski', 'yule'.
+    :param int warping: how many shifts are computed.
     Returns the minimum distance, the cost matrix, the accumulated cost matrix, and the wrap path.
     """
     assert len(x)
@@ -60,7 +64,10 @@ def fastdtw(x, y, dist):
     C = D1.copy()
     for i in range(r):
         for j in range(c):
-            D1[i, j] += min(D0[i, j], D0[i, j+1], D0[i+1, j])
+            min_list = [D0[i, j]]
+            for k in range(1, warping + 1):
+                min_list += [D0[i + k, j], D0[i, j + k]]
+            D1[i, j] += min(min_list)
     if len(x)==1:
         path = zeros(len(y)), range(len(y))
     elif len(y) == 1:
