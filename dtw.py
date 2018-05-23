@@ -4,7 +4,7 @@ from scipy.spatial.distance import cdist
 
 def dtw(x, y, dist, warp=1):
     """
-    Computes Dynamic Time warp (DTW) of two sequences.
+    Computes Dynamic Time Warping (DTW) of two sequences.
 
     :param array x: N1*M array
     :param array y: N2*M array
@@ -42,7 +42,7 @@ def dtw(x, y, dist, warp=1):
 
 def fastdtw(x, y, dist, warp=1):
     """
-    Computes Dynamic Time warp (DTW) of two sequences in a faster way.
+    Computes Dynamic Time Warping (DTW) of two sequences in a faster way.
     Instead of iterating through each element and calculating each distance,
     this uses the cdist function from scipy (https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cdist.html)
 
