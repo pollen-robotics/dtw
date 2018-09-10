@@ -40,7 +40,7 @@ def dtw(x, y, dist, warp=1):
     return D1[-1, -1] / sum(D1.shape), C, D1, path
 
 
-def fastdtw(x, y, dist, warp=1):
+def accelerated_dtw(x, y, dist, warp=1):
     """
     Computes Dynamic Time Warping (DTW) of two sequences in a faster way.
     Instead of iterating through each element and calculating each distance,
