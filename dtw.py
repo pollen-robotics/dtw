@@ -27,8 +27,8 @@ def dtw(x, y, dist, warp=1):
         for j in range(c):
             min_list = [D0[i, j]]
             for k in range(1, warp + 1):
-                i_k = min(i + k, r - 1)
-                j_k = min(j + k, c - 1)
+                i_k = min(i + k, r)
+                j_k = min(j + k, c)
                 min_list += [D0[i_k, j], D0[i, j_k]]
             D1[i, j] += min(min_list)
     if len(x)==1:
