@@ -23,7 +23,6 @@ script:
   - nosetests --with-coverage --cover-erase --cover-package=dtw -v -w tests/
 
 after_success:
-    - coveralls
     - flake8 --statistics --count --config=setup.cfg dtw
     - pip uninstall -y dtw
 
