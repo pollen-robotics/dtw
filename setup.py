@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 
+import imp
 from setuptools import setup
+
+version = imp.load_source('dtw.version', 'dtw/version.py')
 
 
 setup(name='dtw',
-      version='1.3',
+      version=version.version,
       description='Python DTW Module',
       author='Pierre Rouanet',
       author_email='pierre.rouanet@gmail.com',
