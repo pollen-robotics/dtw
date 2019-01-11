@@ -21,7 +21,7 @@ install:
 
 script:
   - nosetests --with-coverage --cover-erase --cover-package=dtw -v -w tests/
-  - flake8 --statistics --count --config=setup.cfg dtw.py
+  - flake8 --statistics --count --config=setup.cfg dtw
 
 after_success:
     - pip uninstall -y dtw
