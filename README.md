@@ -34,7 +34,7 @@ plt.plot(path[0], path[1], 'w')
 plt.show()
 
 ```
-Result of the accumated cost matrix and the shortest path (in white) found:
+Result of the accumulated cost matrix and the shortest path (in white) found:
 ![Acc cost matrix and shortest path](./acc.png)
 
 
