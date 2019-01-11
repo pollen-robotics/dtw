@@ -1,19 +1,27 @@
 #!/usr/bin/env python
 
-from setuptools import setup
+import imp
+from setuptools import setup, find_packages
+
+version = imp.load_source('dtw.version', 'dtw/version.py')
 
 
 setup(name='dtw',
-      version='1.3',
+      version=version.version,
+
       description='Python DTW Module',
       author='Pierre Rouanet',
       author_email='pierre.rouanet@gmail.com',
       url='https://github.com/pierre-rouanet/dtw',
       license='GNU GENERAL PUBLIC LICENSE Version 3',
 
+      packages=find_packages(),
       install_requires=['numpy', 'scipy'],
-      setup_requires=['setuptools_git >= 0.3', ],
 
-      py_modules=['dtw'],
-      test_suite='tests'
+      test_suite='tests',
+
+      classifiers=[
+          "Programming Language :: Python :: 2",
+          "Programming Language :: Python :: 3",
+          "Topic :: Scientific/Engineering", ],
       )

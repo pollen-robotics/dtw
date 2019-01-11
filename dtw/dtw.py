@@ -31,7 +31,7 @@ def dtw(x, y, dist, warp=1):
                 j_k = min(j + k, c)
                 min_list += [D0[i_k, j], D0[i, j_k]]
             D1[i, j] += min(min_list)
-    if len(x)==1:
+    if len(x) == 1:
         path = zeros(len(y)), range(len(y))
     elif len(y) == 1:
         path = range(len(x)), zeros(len(x))
@@ -86,7 +86,7 @@ def _traceback(D):
     i, j = array(D.shape) - 2
     p, q = [i], [j]
     while (i > 0) or (j > 0):
-        tb = argmin((D[i, j], D[i, j+1], D[i+1, j]))
+        tb = argmin((D[i, j], D[i, j + 1], D[i + 1, j]))
         if tb == 0:
             i -= 1
             j -= 1
@@ -110,7 +110,7 @@ if __name__ == '__main__':
         x = [[0, 0], [0, 1], [1, 1], [1, 2], [2, 2], [4, 3], [2, 3], [1, 1], [2, 2], [0, 1]]
         y = [[1, 0], [1, 1], [1, 1], [2, 1], [4, 3], [4, 3], [2, 3], [3, 1], [1, 2], [1, 0]]
         dist_fun = euclidean_distances
-    else: # 1-D list of strings
+    else:  # 1-D list of strings
         from nltk.metrics.distance import edit_distance
         # x = ['we', 'shelled', 'clams', 'for', 'the', 'chowder']
         # y = ['class', 'too']
@@ -124,7 +124,7 @@ if __name__ == '__main__':
     # Vizualize
     from matplotlib import pyplot as plt
     plt.imshow(cost.T, origin='lower', cmap=plt.cm.Reds, interpolation='nearest')
-    plt.plot(path[0], path[1], '-o') # relation
+    plt.plot(path[0], path[1], '-o')  # relation
     plt.xticks(range(len(x)), x)
     plt.yticks(range(len(y)), y)
     plt.xlabel('x')
