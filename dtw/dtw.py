@@ -85,8 +85,8 @@ def accelerated_dtw(x, y, dist, warp=1):
         for j in range(c):
             min_list = [D0[i, j]]
             for k in range(1, warp + 1):
-                min_list += [D0[min(i + k, r - 1), j],
-                             D0[i, min(j + k, c - 1)]]
+                min_list += [D0[min(i + k, r), j],
+                             D0[i, min(j + k, c)]]
             D1[i, j] += min(min_list)
     if len(x) == 1:
         path = zeros(len(y)), range(len(y))
