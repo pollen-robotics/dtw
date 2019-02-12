@@ -18,10 +18,9 @@ y = np.array([1, 1, 2, 4, 2, 1, 2, 0]).reshape(-1, 1)
 
 from dtw import dtw
 
-# Here, we use L2 norm as the element comparison distance
-l2_norm = lambda x, y: (x - y) ** 2
+euclidean_norm = lambda x, y: np.abs(x - y)
 
-d, cost_matrix, acc_cost_matrix, path = dtw(x, y, dist=l2_norm)
+d, cost_matrix, acc_cost_matrix, path = dtw(x, y, dist=euclidean_norm)
 
 print(d)
 >>> 0.1111111111111111 # Only the cost for the insertions is kept
