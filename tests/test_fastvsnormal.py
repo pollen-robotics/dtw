@@ -45,6 +45,6 @@ class FastVsNormalTestCase(unittest.TestCase):
         d2, _, _, _ = accelerated_dtw(x, y, dist=euclidean)
         d3, _, _, _ = dtw(x, y, dist=euclidean)
 
-        self.assertAlmostEqual(d1, 0.022727272727272728)
-        self.assertAlmostEqual(d2, 0.022727272727272728)
-        self.assertAlmostEqual(d3, 0.022727272727272728)
+        self.assertAlmostEqual(d1, 0.5)
+        self.assertAlmostEqual(d2, 0.5)
+        self.assertAlmostEqual(d3, 0.5)

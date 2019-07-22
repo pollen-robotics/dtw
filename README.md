@@ -23,7 +23,7 @@ euclidean_norm = lambda x, y: np.abs(x - y)
 d, cost_matrix, acc_cost_matrix, path = dtw(x, y, dist=euclidean_norm)
 
 print(d)
->>> 0.1111111111111111 # Only the cost for the insertions is kept
+>>> 2.0 # Only the cost for the insertions is kept
 
 # You can also visualise the accumulated cost and the shortest path
 import matplotlib.pyplot as plt

@@ -52,7 +52,7 @@ def dtw(x, y, dist, warp=1, w=inf, s=1.0):
         path = range(len(x)), zeros(len(x))
     else:
         path = _traceback(D0)
-    return D1[-1, -1] / sum(D1.shape), C, D1, path
+    return D1[-1, -1], C, D1, path
 
 
 def accelerated_dtw(x, y, dist, warp=1):
@@ -94,7 +94,7 @@ def accelerated_dtw(x, y, dist, warp=1):
         path = range(len(x)), zeros(len(x))
     else:
         path = _traceback(D0)
-    return D1[-1, -1] / sum(D1.shape), C, D1, path
+    return D1[-1, -1], C, D1, path
 
 
 def _traceback(D):
