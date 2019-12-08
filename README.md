@@ -18,9 +18,9 @@ y = np.array([1, 1, 2, 4, 2, 1, 2, 0]).reshape(-1, 1)
 
 from dtw import dtw
 
-euclidean_norm = lambda x, y: np.abs(x - y)
+manhattan_distance = lambda x, y: np.abs(x - y)
 
-d, cost_matrix, acc_cost_matrix, path = dtw(x, y, dist=euclidean_norm)
+d, cost_matrix, acc_cost_matrix, path = dtw(x, y, dist=manhattan_distance)
 
 print(d)
 >>> 2.0 # Only the cost for the insertions is kept
