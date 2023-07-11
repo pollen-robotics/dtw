@@ -24,7 +24,7 @@ setup(name='dtw',
       url='https://github.com/pierre-rouanet/dtw',
       license='GNU GENERAL PUBLIC LICENSE Version 3',
 
-      packages=find_packages(),
+      packages=find_packages(exclude=["tests"]),
       install_requires=['numpy', 'scipy'],
 
       test_suite='tests',
