@@ -47,9 +47,9 @@ def dtw(x, y, dist, warp=1, w=inf, s=1.0):
                 min_list += [D0[i_k, j] * s, D0[i, j_k] * s]
             D1[i, j] += min(min_list)
     if len(x) == 1:
-        path = zeros(len(y)), range(len(y))
+        path = zeros(len(y),dtype=int), range(len(y))
     elif len(y) == 1:
-        path = range(len(x)), zeros(len(x))
+        path = range(len(x)), zeros(len(x),dtype=int)
     else:
         path = _traceback(D0)
     return D1[-1, -1], C, D1, path
