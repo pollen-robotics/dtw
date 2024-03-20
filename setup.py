@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-import imp
+from importlib.machinery import SourceFileLoader
 from setuptools import setup, find_packages
 
-version = imp.load_source('dtw.version', 'dtw/version.py')
+version = SourceFileLoader('dtw.version', 'dtw/version.py').load_module()
 
 
 long_description = '''
