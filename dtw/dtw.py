@@ -33,7 +33,7 @@ def dtw(x, y, dist, warp=1, w=inf, s=1.0):
     for i in range(r):
         for j in range(c):
             if (isinf(w) or (max(0, i - w) <= j <= min(c, i + w))):
-                D1[i, j] = dist(x[i], y[j])
+                D1[i, j] = dist([[x[i]]], [[y[j]]])
     C = D1.copy()
     jrange = range(c)
     for i in range(r):
